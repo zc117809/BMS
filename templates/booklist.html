@@ -1,0 +1,48 @@
+{% extends 'index.html' %}
+
+
+{% block content %}
+    <h2 class="text-center ">图书展示</h2>
+    <div class="row text-right">
+    <a href="{% url 'book_add' %}"  id="add" class="btn btn-info btn-group-sm">添加</a><br><br>
+    </div>
+    <div class="text-center">
+    <table class="table table-bordered table-hover tab-content table-striped">
+    <thead>
+    <tr>
+        <td class="active">ID</td>
+         <td >图书</td>
+         <td>价格</td>
+         <td>出版日期</td>
+        <td>出版社</td>
+         <td>操作</td>
+    </tr>
+    </thead>
+    <tbody>
+    {% for book_obj in page_queryset %}
+    <tr>
+        <th>{{ book_obj.id }}</th>
+        <th>《{{ book_obj.title }}》</th>
+        <th>{{ book_obj.price }}$</th>
+        <th>{{ book_obj.publish_date|date:'Y-m-d' }}</th>
+        <th>{% for author_obj in book_obj.authors.all %}
+            [{{ author_obj.name }}]
+            {% endfor %}
+        </th>
+        <th>
+            <a href="{% url 'edit_book'  book_obj.id %}" class="btn btn-xs btn-primary">编辑</a>&nbsp;&nbsp;&nbsp;
+            <a href="{% url 'book_delete' book_obj.id %}" class="btn btn-danger btn-xs">删除</a>
+        </th>
+
+    </tr>
+
+    {% endfor %}
+    </tbody>
+
+    </table>
+
+
+     {{ page_obj.page_html|safe }}
+
+</div>
+{% endblock %}

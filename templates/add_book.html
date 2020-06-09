@@ -1,0 +1,39 @@
+{% extends 'index.html' %}
+{% block content %}
+    <h2 class="text-center">添加书籍</h2><br>
+    <div class="row">
+    <div class="col-lg-8 col-md-offset-2">
+    <form action="" method="post" class="text-center ">
+    <p>图书名称：
+            <input type="text" name="title" class="form-control " placeholder="请输入书籍名称">
+    </p>
+        <p>价格：
+            <input type="text" class="form-control" name="price" placeholder="请输入书籍价格">
+        </p>
+        <p>出版日期：
+            {% for foo in add_form %}
+            {{ foo }}
+            {% endfor %}
+
+
+
+        </p>
+         <p>出版社:
+            <select name="publish" id="" class="form-control">
+                {% for publish_obj in publish_list %}
+                    <option value="{{ publish_obj.pk }}">{{ publish_obj.name }}</option>
+                {% endfor %}
+            </select>
+        </p>
+        <p>作者:
+            <select name="authors" id="" multiple class="form-control">
+                {% for author_obj in author_list %}
+                    <option value="{{ author_obj.pk }}">{{ author_obj.name }}</option>
+                {% endfor %}
+            </select>
+        </p>
+        <input type="submit" value="确认提交" class="btn btn-group-sm btn-success">
+    </form>
+    </div>
+  </div>
+{% endblock %}
